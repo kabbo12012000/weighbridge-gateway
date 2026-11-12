@@ -64,6 +64,27 @@ No Node.js, terminals or manual background processes are needed on the weighbrid
 Set **Data source** to *Built-in simulator*. Every 40 s it simulates a truck driving on, settling and
 driving off, sending `ST,GS,+025450 kg` frames in small chunks, like a real serial port.
 
+### Manual weight check
+
+When hardware is unavailable, `manual_scale.py` can send test weight frames through a virtual
+serial-port pair. From the `weighbridge` folder, create or activate the virtual environment and
+install `pyserial`:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install pyserial
+```
+
+Set `PORT` in `manual_scale.py` to the COM port connected to the gateway (for example `COM3`),
+then run:
+
+```powershell
+.\.venv\Scripts\python.exe .\manual_scale.py
+```
+
+Enter a positive weight in kilograms, such as `25450`, and press Enter. The script sends a frame
+like `ST,GS,+025450 kg`. Type `q` to stop. The gateway must be configured for the other end of
+the virtual serial-port pair; close any other program using that COM port before starting the script.
+
 ## Weight parsing
 
 | Mode | Use for |
